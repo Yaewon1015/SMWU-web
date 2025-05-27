@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>마이페이지</title>
+  <link rel="stylesheet" href="mainstyle.css" />
+  <style>
+
+
+    .main-content {
+      flex: 1;
+      padding: 30px;
+    }
+
+    .mypage {
+      display: flex;
+      gap: 30px;
+    }
+
+    .left-panel {
+      width: 300px;
+      padding: 20px;
+    }
+
+    .left-panel img {
+      width: 100%;
+      border: 1px solid #888;
+      margin-bottom: 15px;
+    }
+
+    .left-panel h2 {
+      font-size: 20px;
+      color: #00ffff;
+    }
+
+    .left-panel p {
+      color: #ccc;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .edit-btn {
+      width: 100%;
+      padding: 10px;
+      background-color: #00cc66;
+      color: black;
+      font-weight: bold;
+      border: 1px solid #00cc66;
+      cursor: pointer;
+    }
+
+    .right-panel {
+      flex: 1;
+    }
+
+    .right-panel h3 {
+      color: #00ccff;
+      border-bottom: 1px solid #444;
+      padding-bottom: 5px;
+    }
+
+    .post-item {
+      background-color: #2a2a2a;
+      border: 1px solid #444;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+
+    .post-item h3 {
+      margin: 0 0 8px;
+    }
+
+    #edit-panel {
+      flex: 1;
+      background-color: #2a2a2a;
+      padding: 20px;
+      border-left: 2px solid #00ffff;
+    }
+
+    #edit-panel input,
+    #edit-panel textarea {
+      width: 100%;
+      padding: 8px;
+      background-color: #000;
+      color: #fff;
+      border: 1px solid #555;
+    }
+
+    #edit-panel button {
+      padding: 10px 15px;
+      margin-top: 10px;
+      font-weight: bold;
+      border: none;
+    }
+
+    #edit-panel .save-btn {
+      background-color: #00cc66;
+      color: black;
+    }
+
+    #edit-panel .cancel-btn {
+      background-color: #444;
+      color: white;
+      margin-left: 10px;
+    }
+
+    .menu-title {
+  color: #ffffff;
+  cursor: pointer;
+  padding: 8px 10px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.3s;
+}
+
+.menu-title:hover {
+  background-color: #2d2d2d;
+}
+
+li.active .menu-title::before {
+  content: "▼";
+}
+.menu-title::before {
+  content: "▶";
+  display: inline-block;
+  width: 16px;
+  transition: transform 0.3s ease;
+}
+
+
+  </style>
+</head>
+
+<body>
+
+<header>공통 헤더</header>
+
+<div class="container">
+  <nav>
+  <ul>
+    <li>
+      <div class="menu-title">메뉴 1</div>
+      <ul class="submenu">
+        <li><a href="#">하위 메뉴 1-1</a></li>
+        <li><a href="#">하위 메뉴 1-2</a></li>
+      </ul>
+    </li>
+    <li>
+      <div class="menu-title">메뉴 2</div>
+      <ul class="submenu">
+        <li><a href="#">하위 메뉴 2-1</a></li>
+        <li><a href="#">하위 메뉴 2-2</a></li>
+      </ul>
+    </li>
+    <li>
+      <div class="menu-title">메뉴 3</div>
+      <ul class="submenu">
+        <li><a href="#">하위 메뉴 3-1</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+  <div class="main-content">
+    <div class="mypage">
+      <div class="left-panel">
+        <img src="https://placehold.co/400x400" alt="프로필 사진">
+        <h2>닉네임</h2>
+        <p>코딩을 사랑하는 개발자입니다.<br>React와 Python을 좋아해요!</p>
+        <button class="edit-btn">마이페이지 수정</button>
+      </div>
+
+      <div class="right-panel" id="post-list">
+        <h3>작성한 게시글</h3>
+        <div class="post-item"><h3>게시글 제목</h3><p>내용내용내용.</p></div>
+        <div class="post-item"><h3>게시글 제목</h3><p>내용내용내용.</p></div>
+        <div class="post-item"><h3>게시글 제목</h3><p>내용내용내용.</p></div>
+      </div>
+
+      <div id="edit-panel" style="display: none;">
+        <h3 style="color: #00ffcc;">프로필 수정</h3>
+        <label>닉네임:<br><input type="text" id="edit-nickname"></label><br><br>
+        <label>설명:<br><textarea id="edit-description" rows="4"></textarea></label><br>
+        <button class="save-btn" onclick="saveProfile()">저장</button>
+        <button class="cancel-btn" onclick="cancelEdit()">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const titles = document.querySelectorAll('.menu-title');
+
+  titles.forEach(title => {
+  title.addEventListener('click', () => {
+    const currentLi = title.closest('li');
+    const isActive = currentLi.classList.contains('active');
+
+    // 모두 닫기
+    document.querySelectorAll('nav ul li').forEach(li => li.classList.remove('active'));
+
+    // 현재 항목만 열기
+    if (!isActive) {
+      currentLi.classList.add('active');
+    }
+  });
+});
+
+
+
+  // 마이페이지 수정 기능
+  const editBtn = document.querySelector('.edit-btn');
+  const nicknameEl = document.querySelector('.left-panel h2');
+  const descEl = document.querySelector('.left-panel p');
+  const postList = document.getElementById('post-list');
+  const editPanel = document.getElementById('edit-panel');
+  const editNicknameInput = document.getElementById('edit-nickname');
+  const editDescriptionInput = document.getElementById('edit-description');
+
+  editBtn.addEventListener('click', () => {
+    editNicknameInput.value = nicknameEl.textContent;
+    editDescriptionInput.value = descEl.innerText.replace(/<br>/g, '\n');
+
+    postList.style.display = 'none';
+    editPanel.style.display = 'block';
+    nicknameEl.style.display = 'none';
+    descEl.style.display = 'none';
+    editBtn.style.display = 'none';
+  });
+
+  function saveProfile() {
+    nicknameEl.textContent = editNicknameInput.value;
+    descEl.innerHTML = editDescriptionInput.value.replace(/\n/g, '<br>');
+    nicknameEl.style.display = 'block';
+    descEl.style.display = 'block';
+    editBtn.style.display = 'block';
+    postList.style.display = 'block';
+    editPanel.style.display = 'none';
+  }
+
+  function cancelEdit() {
+    nicknameEl.style.display = 'block';
+    descEl.style.display = 'block';
+    editBtn.style.display = 'block';
+    postList.style.display = 'block';
+    editPanel.style.display = 'none';
+  }
+</script>
+
+</body>
+</html>
