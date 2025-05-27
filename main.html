@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>코딩커뮤니티</title>
+  <link rel="stylesheet" href="mainstyle.css">
+  <style>
+    .main-content {
+      flex: 1;
+      padding: 30px;
+    }
+
+    .slider {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      height: 450px;
+      margin: 0 auto;
+      overflow: hidden;
+      border: 2px solid #444;
+    }
+
+    .slides {
+      display: flex;
+      width: 300%;
+      height: 100%;
+      transition: transform 1s ease;
+    }
+
+    .slide {
+      width: 100%;
+      flex-shrink: 0;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .indicators {
+      display: flex;
+      justify-content: center;
+      margin-top: 15px;
+      gap: 10px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #888;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .dot.active {
+      background-color: #00aaff;
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 30px;
+      color: #fff;
+      background-color: rgba(0, 0, 0, 0.5);
+      border: none;
+      cursor: pointer;
+      padding: 10px;
+      z-index: 1;
+    }
+
+    .arrow.left {
+      left: 10px;
+    }
+
+    .arrow.right {
+      right: 10px;
+    }
+
+    nav {
+      background-color: #1a1a1a;
+      padding: 15px;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav > ul > li {
+      margin-bottom: 10px;
+    }
+
+        .menu-title {
+  color: #ffffff;
+  cursor: pointer;
+  padding: 8px 10px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.3s;
+}
+
+.menu-title:hover {
+  background-color: #2d2d2d;
+}
+
+li.active .menu-title::before {
+  content: "▼";
+}
+.menu-title::before {
+  content: "▶";
+  display: inline-block;
+  width: 16px;
+  transition: transform 0.3s ease;
+}
+
+.fixed-profile {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: #1a1a1a;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 100;
+}
+
+.fixed-profile-img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #888;
+}
+
+.fixed-profile-btn {
+  color: black;
+  background-color: #00cc66;
+  padding: 6px 10px;
+  border-radius: 0;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.fixed-profile-btn:hover {
+  background-color: #00aa55;
+}
+
+  </style>
+</head>
+
+<body>
+
+<header>
+  공통 헤더
+</header>
+
+<div class="container">
+  <nav>
+  <ul>
+    <li>
+      <div class="menu-title">메뉴 1</div>
+      <ul class="submenu">
+        <li><a href="#">하위 메뉴 1-1</a></li>
+        <li><a href="#">하위 메뉴 1-2</a></li>
+      </ul>
+    </li>
+    <li>
+      <div class="menu-title">메뉴 2</div>
+      <ul class="submenu">
+        <li><a href="#">하위 메뉴 2-1</a></li>
+        <li><a href="#">하위 메뉴 2-2</a></li>
+      </ul>
+    </li>
+    <li>
+      <div class="menu-title">메뉴 3</div>
+      <ul class="submenu">
+        <li><a href="#">하위 메뉴 3-1</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  <div class="main-content">
+    <div class="slider">
+      <button class="arrow left" onclick="changeSlide(-1)">&#10094;</button>
+      <button class="arrow right" onclick="changeSlide(1)">&#10095;</button>
+
+      <div class="slides" id="slides">
+        <div class="slide">
+          <a href="notice.html">  
+          <img src="https://placehold.co/800x450/ff4444/ffffff?text=Slide+1" alt="슬라이드1"></a>
+        </div>
+        <div class="slide">
+          <a href="map.html">  
+          <img src="https://placehold.co/800x450/44ff44/000000?text=Slide+2" alt="슬라이드2"></a>
+        </div>
+        <div class="slide">
+          <a href="#">  
+          <img src="https://placehold.co/800x450/4444ff/ffffff?text=Slide+3" alt="슬라이드3"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="indicators">
+      <div class="dot active" onclick="goToSlide(0)"></div>
+      <div class="dot" onclick="goToSlide(1)"></div>
+      <div class="dot" onclick="goToSlide(2)"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 슬라이더 기능
+  let currentIndex = 0;
+  const slides = document.getElementById("slides");
+  const dots = document.querySelectorAll(".dot");
+  const totalSlides = dots.length;
+  let autoSlideInterval = setInterval(nextSlide, 3000);
+
+  function updateSlider() {
+    slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+    dots.forEach((dot, index) => {
+      dot.classList.toggle("active", index === currentIndex);
+    });
+  }
+
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % totalSlides;
+    updateSlider();
+  }
+
+  function changeSlide(direction) {
+    clearInterval(autoSlideInterval);
+    currentIndex = (currentIndex + direction + totalSlides) % totalSlides;
+    updateSlider();
+    autoSlideInterval = setInterval(nextSlide, 3000);
+  }
+
+  function goToSlide(index) {
+    clearInterval(autoSlideInterval);
+    currentIndex = index;
+    updateSlider();
+    autoSlideInterval = setInterval(nextSlide, 3000);
+  }
+
+const titles = document.querySelectorAll('.menu-title');
+
+titles.forEach(title => {
+  title.addEventListener('click', () => {
+    const currentLi = title.closest('li');
+    const isActive = currentLi.classList.contains('active');
+
+    // 모두 닫기
+    document.querySelectorAll('nav ul li').forEach(li => li.classList.remove('active'));
+
+    // 현재 항목만 열기
+    if (!isActive) {
+      currentLi.classList.add('active');
+    }
+  });
+});
+
+</script>
+
+<!--좌측 하단 프로필&마이페이지-->
+<div class="fixed-profile">
+  <img src="https://placehold.co/50x50" alt="프로필" class="fixed-profile-img">
+  <a href="mypage.html" class="fixed-profile-btn">마이페이지</a>
+</div>
+
+</body>
+</html>
