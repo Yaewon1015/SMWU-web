@@ -6,6 +6,30 @@
   <link rel="stylesheet" href="mainstyle.css">
   <style>
 
+  .menu-title {
+  color: #ffffff;
+  cursor: pointer;
+  padding: 8px 10px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.3s;
+}
+
+.menu-title:hover {
+  background-color: #2d2d2d;
+}
+
+li.active .menu-title::before {
+  content: "▼";
+}
+.menu-title::before {
+  content: "▶";
+  display: inline-block;
+  width: 16px;
+  transition: transform 0.3s ease;
+}
     .content {
       flex-grow: 1;
       padding: 20px;
