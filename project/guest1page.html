@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>게스트페이지</title>
+  <link rel="stylesheet" href="mainstyle.css">
+  <style>
+
+    .main-content {
+      flex: 1;
+      padding: 30px;
+    }
+
+    .mypage {
+      display: flex;
+      gap: 30px;
+    }
+
+    /* 좌측 프로필 */
+    .left-panel {
+      width: 300px;
+      background-color: #2a2a2a;
+      padding: 20px;
+      border: 1px solid #444;
+    }
+
+    .left-panel img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      border: 1px solid #888;
+      margin-bottom: 15px;
+    }
+
+    .left-panel h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #00ffff;
+    }
+
+    .left-panel p {
+      color: #ccc;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .follow-btn {
+      width: 100%;
+      padding: 10px;
+      background-color: #00cc66;
+      color: black;
+      font-weight: bold;
+      border: none;
+      border: 1px solid #00cc66;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .follow-btn:hover {
+      background-color: #009944;
+    }
+
+    /* 우측 게시글 */
+    .right-panel {
+      flex: 1;
+    }
+
+    .right-panel h3 {
+      color: #00ccff;
+      font-size: 18px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #444;
+      padding-bottom: 5px;
+    }
+
+    .post-item {
+      background-color: #2a2a2a;
+      border: 1px solid #444;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+
+    .post-item h3 {
+      color: #ffffff;
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .post-item p {
+      color: #bbbbbb;
+      font-size: 14px;
+      margin: 0;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<header>
+  공통 헤더
+</header>
+
+<div class="container">
+  <nav>
+    공통 메뉴
+
+  </nav>
+
+  <div class="main-content">
+    <div class="mypage">
+
+      <!-- 프로필 -->
+      <div class="left-panel">
+        <img src="https://placehold.co/400x400"  alt="프로필 사진">
+        <h2>홍길동</h2>
+          <p>코딩을 사랑하는 개발자입니다.<br>React와 Python을 좋아해요!</p>
+          <button class="follow-btn">+ 팔로우</button>
+        </div>
+
+        <!-- 오른쪽 게시글 목록 -->
+      <div class="right-panel">
+        <h3>작성한 게시글</h3>
+
+        <div class="post-item">
+          <h3>게시글 제목</h3>
+          <p>내용내용내용내용내용내용내용.</p>
+        </div>
+
+        <div class="post-item">
+          <h3>게시글 제목</h3>
+          <p>내용내용내용내용내용내용내용.</p>
+        </div>  
+
+        <div class="post-item">
+          <h3>게시글 제목</h3>
+          <p>내용내용내용내용내용내용내용.</p>
+        </div>
+
+
+      </div>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

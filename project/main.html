@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>코딩커뮤니티</title>
+  <link rel="stylesheet" href="mainstyle.css">
+  <style>
+    .main-content {
+      flex: 1;
+      padding: 30px;
+    }
+
+    .slider {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  height: 500px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 2px solid #444;
+}
+
+.slides {
+  display: flex;
+  height: 100%;
+  transition: transform 1s ease;
+}
+
+.slide {
+  flex: 0 0 100%;
+  height: 100%;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+    .indicators {
+      display: flex;
+      justify-content: center;
+      margin-top: 15px;
+      gap: 10px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #888;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .dot.active {
+      background-color: #00aaff;
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 30px;
+      color: #fff;
+      background-color: rgba(0, 0, 0, 0.5);
+      border: none;
+      cursor: pointer;
+      padding: 10px;
+      z-index: 1;
+    }
+
+    .arrow.left {
+      left: 10px;
+    }
+
+    .arrow.right {
+      right: 10px;
+    }
+
+    nav {
+      background-color: #1a1a1a;
+      padding: 15px;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav > ul > li {
+      margin-bottom: 10px;
+    }
+
+        .menu-title {
+  color: #ffffff;
+  cursor: pointer;
+  padding: 8px 10px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.3s;
+}
+
+.menu-title:hover {
+  background-color: #2d2d2d;
+}
+
+li.active .menu-title::before {
+  content: "▼";
+}
+.menu-title::before {
+  content: "▶";
+  display: inline-block;
+  width: 16px;
+  transition: transform 0.3s ease;
+}
+
+.fixed-profile {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: #1a1a1a;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 100;
+}
+
+.fixed-profile-img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #888;
+}
+
+.fixed-profile-btn {
+  color: black;
+  background-color: #00cc66;
+  padding: 6px 10px;
+  border-radius: 0;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.fixed-profile-btn:hover {
+  background-color: #00aa55;
+}
+
+  </style>
+</head>
+
+<body>
+<header>
+  <a href="main.html" style="color: inherit; text-decoration: none;">공통 헤더</a>
+</header>
+
+<div class="container">
+  <nav>
+  <ul>
+    <li>
+      <div class="menu-title">코딩</div>
+      <ul class="submenu">
+        <li><a href="coding1.html">파이썬, c, java</a></li>
+        <li><a href="coding2.html">html, css, js</a></li>
+      </ul>
+    </li>
+    <li>
+      <div class="menu-title">프로젝트</div>
+      <ul class="submenu">
+        <li><a href="project1.html">팀원 모집</a></li>
+        <li><a href="project2.html">프로젝트 후기</a></li>
+      </ul>
+    </li>
+    <li>
+      <div class="menu-title">강의</div>
+      <ul class="submenu">
+        <li><a href="lecture1.html">수강/시험 후기</a></li>
+        <li><a href="lecture2.html">자유 게시판</a></li>
+      </ul>
+    </li>
+    <li>
+      <div class="menu-title">자격증</div>
+      <ul class="submenu">
+        <li><a href="license1.html">스터디 모집</a></li>
+        <li><a href="license2.html">정보 공유방</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  <div class="main-content">
+    <div class="slider">
+      <button class="arrow left" onclick="changeSlide(-1)">&#10094;</button>
+      <button class="arrow right" onclick="changeSlide(1)">&#10095;</button>
+
+      <div class="slides" id="slides">
+        <div class="slide">
+          <a href="notice.html">  
+          <img src="공지사항.png" alt="슬라이드1"></a>
+        </div>
+        <div class="slide">
+          <a href="map.html">  
+          <img src="오시는길.png" alt="슬라이드2"></a>
+        </div>
+        <div class="slide">
+          <a href="#">  
+          <img src="출석체크.png" alt="슬라이드3"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="indicators">
+      <div class="dot active" onclick="goToSlide(0)"></div>
+      <div class="dot" onclick="goToSlide(1)"></div>
+      <div class="dot" onclick="goToSlide(2)"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 슬라이더 기능
+  const slides = document.getElementById("slides");
+const dots = document.querySelectorAll(".dot");
+const slideElements = slides.querySelectorAll(".slide");
+const totalSlides = slideElements.length;
+
+let currentIndex = 0;
+let autoSlideInterval = setInterval(nextSlide, 3000);
+
+function updateSlider() {
+  slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+  dots.forEach((dot, index) => {
+    dot.classList.toggle("active", index === currentIndex);
+  });
+}
+
+function nextSlide() {
+  currentIndex = (currentIndex + 1) % totalSlides;
+  updateSlider();
+}
+
+function changeSlide(direction) {
+  clearInterval(autoSlideInterval);
+  currentIndex = (currentIndex + direction + totalSlides) % totalSlides;
+  updateSlider();
+  autoSlideInterval = setInterval(nextSlide, 3000);
+}
+
+function goToSlide(index) {
+  clearInterval(autoSlideInterval);
+  currentIndex = index;
+  updateSlider();
+  autoSlideInterval = setInterval(nextSlide, 3000);
+}
+
+const titles = document.querySelectorAll('.menu-title');
+
+titles.forEach(title => {
+  title.addEventListener('click', () => {
+    const currentLi = title.closest('li');
+    const isActive = currentLi.classList.contains('active');
+
+    // 모두 닫기
+    document.querySelectorAll('nav ul li').forEach(li => li.classList.remove('active'));
+
+    // 현재 항목만 열기
+    if (!isActive) {
+      currentLi.classList.add('active');
+    }
+  });
+});
+
+
+</script>
+
+<!--좌측 하단 프로필&마이페이지-->
+<div class="fixed-profile">
+  <img src="https://placehold.co/50x50" alt="프로필" class="fixed-profile-img">
+  <a href="mypage.html" class="fixed-profile-btn">마이페이지</a>
+</div>
+
+<script src="cookie.js"></script>
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const loginUser = GetCookie("loginUser");
+    const nickname = localStorage.getItem("nickname");
+    const profileImg = localStorage.getItem("profileImage");
+
+    const profileThumb = document.getElementById("profile-thumb");
+    const profileBtn = document.getElementById("profile-btn");
+
+    if (loginUser) {
+      // 로그인 상태일 때
+      profileBtn.textContent = "마이페이지";
+      profileBtn.href = "mypage.html";
+
+      if (profileImg) {
+        profileThumb.src = profileImg;
+      }
+    } else {
+      // 비로그인 상태일 때
+      profileBtn.textContent = "로그인";
+      profileBtn.href = "login.html";
+      profileThumb.src = "https://placehold.co/50x50";
+    }
+  });
+</script>
+
+</body>
+</html>

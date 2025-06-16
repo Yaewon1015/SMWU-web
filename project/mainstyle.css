@@ -1,0 +1,101 @@
+   body {
+     margin: 0;
+     font-family: 'Consolas', monospace;
+     background-color: #000000;
+     color: #ffffff;
+   }
+
+   header {
+     padding: 20px;
+     font-size: 24px;
+     border-bottom: 1px solid #00ffff;
+   }
+
+   .container {
+     display: flex;
+   }
+
+   nav {
+     width: 220px;
+     padding: 20px;
+     height: 100vh;
+     box-sizing: border-box;
+     border-right: 1px solid #00ffff;
+     background-color: #000;
+   }
+
+   nav ul {
+     list-style: none;
+     padding: 0;
+     margin: 0;
+   }
+
+   nav ul li {
+     margin-bottom: 10px;
+   }
+
+   nav ul li > .menu-toggle {
+     color: #00ffff;
+     cursor: pointer;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 8px 10px;
+     background-color: transparent;
+     border: none;
+     width: 100%;
+     font-size: 16px;
+     text-align: left;
+   }
+
+   nav ul li .arrow {
+     transition: transform 0.3s ease;
+   }
+
+   nav ul li.active .arrow {
+     transform: rotate(90deg);
+   }
+
+   nav ul .submenu {
+     max-height: 0;
+     overflow: hidden;
+     transition: max-height 0.3s ease;
+     margin-left: 10px;
+   }
+
+   nav ul li.active .submenu {
+     max-height: 500px;
+   }
+
+   nav ul .submenu a {
+     display: block;
+     color: #66ffff;
+     padding: 5px 10px;
+     text-decoration: none;
+     font-size: 14px;
+   }
+
+    .menu-title {
+  color: #ffffff;
+  cursor: pointer;
+  padding: 8px 10px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.3s;
+}
+
+.menu-title:hover {
+  background-color: #2d2d2d;
+}
+
+li.active .menu-title::before {
+  content: "▼";
+}
+.menu-title::before {
+  content: "▶";
+  display: inline-block;
+  width: 16px;
+  transition: transform 0.3s ease;
+}
