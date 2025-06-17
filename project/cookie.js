@@ -12,7 +12,7 @@ function GetCookie(name) {
 function SetCookie(name, value, expireDate) {
   const cookieStr = name + "=" + escape(value) +
     ((expireDate == null) ? "" : ("; expires=" + expireDate.toUTCString())) +
-    "; path=/"; // ✅ 꼭 있어야 모든 페이지에서 접근 가능!
+    "; path=/"; 
   document.cookie = cookieStr;
 }
 
