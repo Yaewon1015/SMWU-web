@@ -140,7 +140,7 @@
   <button type="submit" class="submit-btn">제출</button>
   </div>
 </form>
-
+<script src="cookie.js"></script>
 <script>
   function validateForm() {
     let valid = true;
@@ -183,6 +183,18 @@
       document.getElementById('errorConfirmPassword').innerText = '비밀번호가 일치하지 않습니다.';
       valid = false;
     }
+    
+    localStorage.setItem("userId", userId);
+    localStorage.setItem("password", password);
+    localStorage.setItem("nickname", nickname);
+    localStorage.setItem("studentId", studentId);
+
+    const expire = new Date();
+    expire.setMinutes(expire.getMinutes() + 60);
+    SetCookie("loginUser", userId, expire);
+
+    alert("회원가입이 완료되었습니다. 메인 페이지로 이동합니다.");
+    window.location.href = "main.html";
 
     return valid;
   }
