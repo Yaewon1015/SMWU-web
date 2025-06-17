@@ -173,8 +173,19 @@
     </div>
   </div>
 </div>
-
+<script src="cookie.js"></script>
 <script>
+
+window.addEventListener('DOMContentLoaded', () => {
+  const savedNickname = localStorage.getItem('nickname');
+  const savedDescription = localStorage.getItem('description');
+  const savedImage = localStorage.getItem('profileImage');
+
+  if (savedNickname) nicknameEl.textContent = savedNickname;
+  if (savedDescription) descEl.innerHTML = savedDescription.replace(/\n/g, '<br>');
+  if (savedImage) profileImage.src = savedImage;
+});
+  
   const titles = document.querySelectorAll('.menu-title');
 
   titles.forEach(title => {
@@ -217,11 +228,20 @@
   function saveProfile() {
     nicknameEl.textContent = editNicknameInput.value;
     descEl.innerHTML = editDescriptionInput.value.replace(/\n/g, '<br>');
+
+      if (previewImage.src && previewImage.style.display !== 'none') {
+    profileImage.src = previewImage.src;
+    localStorage.setItem('profileImage', previewImage.src);
+  }
+
+    localStorage.setItem('nickname', editNicknameInput.value);
+  localStorage.setItem('description', editDescriptionInput.value);
     nicknameEl.style.display = 'block';
     descEl.style.display = 'block';
     editBtn.style.display = 'block';
     postList.style.display = 'block';
     editPanel.style.display = 'none';
+    editImageInput.style.display = 'none';
   }
 
   function cancelEdit() {
@@ -230,7 +250,24 @@
     editBtn.style.display = 'block';
     postList.style.display = 'block';
     editPanel.style.display = 'none';
+    editImageInput.style.display = 'none';
   }
+
+  const editImageInput = document.getElementById('edit-image');
+const previewImage = document.getElementById('preview-image');
+const profileImage = document.querySelector('.left-panel img');
+
+editImageInput.addEventListener('change', (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      previewImage.src = e.target.result;
+      previewImage.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  }
+});
 </script>
 
 </body>
