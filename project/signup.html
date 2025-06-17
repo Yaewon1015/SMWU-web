@@ -142,48 +142,46 @@
 </form>
 <script src="cookie.js"></script>
 <script>
+  
   function validateForm() {
-    let valid = true;
+  let valid = true;
 
-    const studentId = document.getElementById('studentId').value;
-    const userId = document.getElementById('userId').value;
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
-    const nickname = document.getElementById('nickname').value;
+  const studentId = document.getElementById('studentId').value;
+  const userId = document.getElementById('userId').value;
+  const password = document.getElementById('password').value;
+  const confirmPassword = document.getElementById('confirmPassword').value;
+  const nickname = document.getElementById('nickname').value;
 
-    // Clear previous errors
-    document.querySelectorAll('.error').forEach(el => el.innerText = '');
+  // Clear previous errors
+  document.querySelectorAll('.error').forEach(el => el.innerText = '');
 
-    // 학번: 숫자만
-    if (!/^\d+$/.test(studentId)) {
-      document.getElementById('errorStudentId').innerText = '숫자가 아닌 값이 포함되어 있습니다.';
-      valid = false;
-    }
+  // 유효성 검사
+  if (!/^\d+$/.test(studentId)) {
+    document.getElementById('errorStudentId').innerText = '숫자가 아닌 값이 포함되어 있습니다.';
+    valid = false;
+  }
 
-    // 아이디: 7자 이상 + 영어/숫자
-    if (!/^[a-zA-Z0-9]{7,}$/.test(userId)) {
-      document.getElementById('errorUserId').innerText = '7자 이상, 영문/숫자 조합 필요.';
-      valid = false;
-    }
+  if (!/^[a-zA-Z0-9]{7,}$/.test(userId)) {
+    document.getElementById('errorUserId').innerText = '7자 이상, 영문/숫자 조합 필요.';
+    valid = false;
+  }
 
-    // 비밀번호: 7자 이상
-    if (password.length < 7) {
-      document.getElementById('errorPassword').innerText = '비밀번호는 7자 이상이어야 합니다.';
-      valid = false;
-    }
+  if (password.length < 7) {
+    document.getElementById('errorPassword').innerText = '비밀번호는 7자 이상이어야 합니다.';
+    valid = false;
+  }
 
-    // 닉네임: 존재 여부
-    if (nickname.trim() === '') {
-      document.getElementById('errorNickname').innerText = '이름(닉네임)을 입력하세요.';
-      valid = false;
-    }
+  if (nickname.trim() === '') {
+    document.getElementById('errorNickname').innerText = '이름(닉네임)을 입력하세요.';
+    valid = false;
+  }
 
-    // 비밀번호 확인
-    if (password !== confirmPassword) {
-      document.getElementById('errorConfirmPassword').innerText = '비밀번호가 일치하지 않습니다.';
-      valid = false;
-    }
-    
+  if (password !== confirmPassword) {
+    document.getElementById('errorConfirmPassword').innerText = '비밀번호가 일치하지 않습니다.';
+    valid = false;
+  }
+
+  if (valid) {
     localStorage.setItem("userId", userId);
     localStorage.setItem("password", password);
     localStorage.setItem("nickname", nickname);
@@ -195,9 +193,11 @@
 
     alert("회원가입이 완료되었습니다. 메인 페이지로 이동합니다.");
     window.location.href = "main.html";
-
-    return valid;
   }
+
+  return false; // 항상 false 반환하여 폼 기본 제출 막음
+}
+
 
 
     const titles = document.querySelectorAll('.menu-title');
