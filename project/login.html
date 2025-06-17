@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>로그인</title>
+  <link rel="stylesheet" href="mainstyle.css" />
+  <style>
+    form {
+      flex: 1;
+      background-color: #1a1a1a;
+      padding: 30px;
+      max-width: 500px;
+      margin: 50px auto;
+      border: 1px solid #00ffff;
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      background-color: #000;
+      color: #00ffff;
+      border: 1px solid #00ffff;
+      margin-bottom: 20px;
+    }
+    .submit-btn {
+      float: right;
+      padding: 10px 30px;
+      background-color: #00cc66;
+      color: black;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+    .error {
+      color: #ff4444;
+      margin-bottom: 10px;
+    }
+    .link {
+      display: block;
+      margin-top: 20px;
+      text-align: center;
+    }
+    .link a {
+      color: #00ffff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+<header>로그인</header>
+<form onsubmit="return login()">
+  <div class="error" id="error-msg"></div>
+  <label for="loginId">아이디</label>
+  <input type="text" id="loginId" />
+  <label for="loginPassword">비밀번호</label>
+  <input type="password" id="loginPassword" />
+  <button type="submit" class="submit-btn">로그인</button>
+  <div class="link">
+    <a href="signup.html">아직 회원이 아니신가요? 회원가입</a>
+  </div>
+</form>
+<script src="cookie.js"></script>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    UpdateFixedProfile(); // 상태에 따라 버튼 바꿈
+  });
+</script>
+
+
+<script>
+  function login() {
+    const id = document.getElementById("loginId").value;
+    const pw = document.getElementById("loginPassword").value;
+    const error = document.getElementById("error-msg");
+
+    error.innerText = "";
+
+    const storedId = localStorage.getItem("userId");
+    const storedPw = localStorage.getItem("password");
+
+    if (id === storedId && pw === storedPw) {
+      const expire = new Date();
+      expire.setMinutes(expire.getMinutes() + 60);
+      SetCookie("loginUser", id, expire);
+      alert("로그인 성공!");
+      window.location.href = "main.html";
+      return false;
+    } else {
+      error.innerText = "아이디 또는 비밀번호가 올바르지 않습니다.";
+      return false;
+    }
+  }
+</script>
+</body>
+</html>
+
