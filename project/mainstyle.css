@@ -354,5 +354,22 @@ li.active .menu-title::before {
         width: 10px;
         height: 10px;
       }
+               /* 메인 콘텐츠 패딩 조정 */
+      .main-content {
+        padding: 15px;
+      }
+
+      /* 슬라이더 높이 조정 */
+      .slider {
+        height: 300px;
+        max-width: 100%;
+      }
+
+      /* 화살표 버튼 크기 조정 */
+      .arrow {
+        font-size: 20px;
+        padding: 8px;
+      }
+           
     }
     
