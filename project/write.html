@@ -2,6 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>글쓰기</title>
   <link rel="stylesheet" href="mainstyle.css">
   <style>
@@ -105,48 +106,197 @@ input, textarea {
   height: 300px;
   resize: vertical;
 }
+  .fixed-profile {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: #1a1a1a;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 100;
+}
+
+.fixed-profile-img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #888;
+}
+
+.fixed-profile-btn {
+  color: black;
+  background-color: #00cc66;
+  padding: 6px 10px;
+  border-radius: 0;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.fixed-profile-btn:hover {
+  background-color: #00aa55;
+}
+
+/* 모바일 반응형 추가 스타일 */
+@media (max-width: 768px) {
+  .content-wrapper {
+    margin: 20px 15px;
+    margin-left: 15px;
+    max-width: none;
+  }
+
+  form {
+    padding: 15px;
+  }
+
+  input, textarea {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  #content {
+    height: 250px;
+  }
+
+  button {
+    padding: 10px 25px;
+    font-size: 14px;
+    width: 100%;
+  }
+
+  .fixed-profile {
+    bottom: 20px;
+    right: 20px;
+    left: auto;
+  }
+
+  .fixed-profile-img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .fixed-profile-btn {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .content-wrapper {
+    margin: 15px 10px;
+  }
+
+  form {
+    padding: 10px;
+  }
+
+  input, textarea {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  #content {
+    height: 200px;
+  }
+
+  .author-options {
+    gap: 15px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+}
   </style>
 </head>
 <body>
   <header>
     <a href="main.html" style="color: inherit; text-decoration: none;">코딩숙터디</a>
   </header>
+  <div class="container">
+  <!-- 데스크톱 네비게이션 -->
+  <nav class="desktop-nav">
+    <ul>
+      <li>
+        <div class="menu-title">코딩</div>
+        <ul class="submenu">
+          <li><a href="coding1.html">파이썬, c, java</a></li>
+          <li><a href="coding2.html">html, css, js</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="menu-title">프로젝트</div>
+        <ul class="submenu">
+          <li><a href="project1.html">팀원 모집</a></li>
+          <li><a href="project2.html">프로젝트 후기</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="menu-title">강의</div>
+        <ul class="submenu">
+          <li><a href="lecture1.html">수강/시험 후기</a></li>
+          <li><a href="lecture2.html">자유 게시판</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="menu-title">자격증</div>
+        <ul class="submenu">
+          <li><a href="license1.html">스터디 모집</a></li>
+          <li><a href="license2.html">정보 공유방</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
 
+  <!-- 햄버거 메뉴 버튼 -->
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 
-<div class="container">
-  <nav>
-  <ul>
-    <li>
-      <div class="menu-title">코딩</div>
-      <ul class="submenu">
-        <li><a href="coding1.html">파이썬, c, java</a></li>
-        <li><a href="coding2.html">html, css, js</a></li>
-      </ul>
-    </li>
-    <li>
-      <div class="menu-title">프로젝트</div>
-      <ul class="submenu">
-        <li><a href="project1.html">팀원 모집</a></li>
-        <li><a href="project2.html">프로젝트 후기</a></li>
-      </ul>
-    </li>
-    <li>
-      <div class="menu-title">강의</div>
-      <ul class="submenu">
-        <li><a href="lecture1.html">수강/시험 후기</a></li>
-        <li><a href="lecture2.html">자유 게시판</a></li>
-      </ul>
-    </li>
-    <li>
-      <div class="menu-title">자격증</div>
-      <ul class="submenu">
-        <li><a href="license1.html">스터디 모집</a></li>
-        <li><a href="license2.html">정보 공유방</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-<div class="content-wrapper">
+  <!-- 모바일 네비게이션 -->
+  <nav class="mobile-nav" id="mobileNav">
+    <ul>
+      <li>
+        <div class="menu-title">코딩</div>
+        <ul class="submenu">
+          <li><a href="coding1.html">파이썬, c, java</a></li>
+          <li><a href="coding2.html">html, css, js</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="menu-title">프로젝트</div>
+        <ul class="submenu">
+          <li><a href="project1.html">팀원 모집</a></li>
+          <li><a href="project2.html">프로젝트 후기</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="menu-title">강의</div>
+        <ul class="submenu">
+          <li><a href="lecture1.html">수강/시험 후기</a></li>
+          <li><a href="lecture2.html">자유 게시판</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="menu-title">자격증</div>
+        <ul class="submenu">
+          <li><a href="license1.html">스터디 모집</a></li>
+          <li><a href="license2.html">정보 공유방</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- 오버레이 -->
+  <div class="overlay" id="overlay"></div>
+
+  <div class="content-wrapper">
   <h2 style="color: white;">게시글 작성</h2>
   <form id="writeForm">
     <label for="title">
@@ -188,18 +338,74 @@ const realNameLabel = document.getElementById("realNameLabel");
 realNameRadio.value = username;
 realNameLabel.textContent = username;
 
-// 3. 메뉴 토글 (아코디언 방식)
-document.querySelectorAll('.menu-title').forEach(title => {
-  title.addEventListener('click', () => {
-    const currentLi = title.closest('li');
-    const isActive = currentLi.classList.contains('active');
+// 데스크톱 메뉴 기능
+  const desktopTitles = document.querySelectorAll('.desktop-nav .menu-title');
+  desktopTitles.forEach(title => {
+    title.addEventListener('click', () => {
+      const currentLi = title.closest('li');
+      const isActive = currentLi.classList.contains('active');
 
-    // 전체 닫기 후 현재 항목만 열기
-    document.querySelectorAll('nav ul li').forEach(li => li.classList.remove('active'));
-    if (!isActive) currentLi.classList.add('active');
+      // 모두 닫기
+      document.querySelectorAll('.desktop-nav ul li').forEach(li => li.classList.remove('active'));
+
+      // 현재 항목만 열기
+      if (!isActive) {
+        currentLi.classList.add('active');
+      }
+    });
   });
-});
 
+  // 햄버거 메뉴 기능
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+  const overlay = document.getElementById('overlay');
+
+  hamburger.addEventListener('click', toggleMobileMenu);
+  overlay.addEventListener('click', closeMobileMenu);
+
+  function toggleMobileMenu() {
+    hamburger.classList.toggle('active');
+    mobileNav.classList.toggle('active');
+    overlay.classList.toggle('active');
+    document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+  }
+
+  function closeMobileMenu() {
+    hamburger.classList.remove('active');
+    mobileNav.classList.remove('active');
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // 모바일 메뉴 아코디언 기능
+  const mobileTitles = document.querySelectorAll('.mobile-nav .menu-title');
+  mobileTitles.forEach(title => {
+    title.addEventListener('click', () => {
+      const currentLi = title.closest('li');
+      const isActive = currentLi.classList.contains('active');
+
+      // 모든 모바일 메뉴 닫기
+      document.querySelectorAll('.mobile-nav ul li').forEach(li => li.classList.remove('active'));
+
+      // 현재 항목만 열기
+      if (!isActive) {
+        currentLi.classList.add('active');
+      }
+    });
+  });
+
+  // 모바일 메뉴 링크 클릭 시 메뉴 닫기
+  const mobileLinks = document.querySelectorAll('.mobile-nav .submenu a');
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', closeMobileMenu);
+  });
+
+  // 창 크기 변경 시 모바일 메뉴 닫기
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+      closeMobileMenu();
+    }
+  });
 // 4. 글 작성 중 감지
 const urlParams = new URLSearchParams(window.location.search);
 const board = urlParams.get("board") || "general";
