@@ -164,7 +164,7 @@
   const tbody = document.getElementById("post-list-body");
   tbody.innerHTML = "";
 
-  posts.forEach(post, index) => {
+  posts.forEach((post, index) => {
     const tr = document.createElement("tr");
     tr.innerHTML = `
       <td>${index + 1}</td>
