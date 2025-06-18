@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>출석체크</title>
+  <link rel="stylesheet" href="mainstyle.css">
+  <style>
+    .calendar-container {
+      max-width: 700px;
+      margin: 40px auto;
+      background-color: #111;
+      padding: 20px;
+      border: 1px solid #00ffff;
+    }
+
+    .calendar-header {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+    }
+
+    .calendar-day {
+      padding: 15px;
+      background-color: #222;
+      text-align: center;
+      border: 1px solid #00ffff;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .calendar-day.today {
+      background-color: #0055aa;
+    }
+
+    .calendar-day.attended {
+      background-color: #00cc66 !important;
+      color: black;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<div class="calendar-container">
+  <div class="calendar-header" id="calendar-header">출석체크 달력</div>
+  <div class="calendar-grid" id="calendar-grid"></div>
+</div>
+
+<script>
+  const calendarGrid = document.getElementById("calendar-grid");
+  const header = document.getElementById("calendar-header");
+
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth(); // 0-based
+  const date = today.getDate();
+
+  const attendedKey = `${year}-${month + 1}-${date}`;
+
+  header.textContent = `${year}년 ${month + 1}월 출석체크`;
+
+  const firstDay = new Date(year, month, 1).getDay(); // 요일
+  const lastDate = new Date(year, month + 1, 0).getDate(); // 마지막 날짜
+
+  // 앞 빈칸
+  for (let i = 0; i < firstDay; i++) {
+    const empty = document.createElement("div");
+    calendarGrid.appendChild(empty);
+  }
+
+  for (let d = 1; d <= lastDate; d++) {
+    const cell = document.createElement("div");
+    cell.className = "calendar-day";
+    cell.textContent = d;
+
+    if (d === date) {
+      cell.classList.add("today");
+    }
+
+    const key = `${year}-${month + 1}-${d}`;
+    if (localStorage.getItem(key) === "attended") {
+      cell.classList.add("attended");
+    }
+
+    cell.addEventListener("click", () => {
+      if (d === date) {
+        localStorage.setItem(key, "attended");
+        cell.classList.add("attended");
+        alert("출석 완료!");
+      } else {
+        alert("오늘 날짜만 클릭 가능합니다.");
+      }
+    });
+
+    calendarGrid.appendChild(cell);
+  }
+</script>
+
+</body>
+</html>

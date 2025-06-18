@@ -75,6 +75,7 @@
      font-size: 14px;
    }
 
+   
     .menu-title {
   color: #ffffff;
   cursor: pointer;
@@ -99,3 +100,39 @@ li.active .menu-title::before {
   width: 16px;
   transition: transform 0.3s ease;
 }
+
+.fixed-profile {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: #1a1a1a;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 100;
+}
+
+.fixed-profile-img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #888;
+}
+
+.fixed-profile-btn {
+  color: black;
+  background-color: #00cc66;
+  padding: 10px 15px;
+  border-radius: 0;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.fixed-profile-btn:hover {
+  background-color: #00aa55;
+}
+

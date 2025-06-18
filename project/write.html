@@ -105,41 +105,6 @@ input, textarea {
   height: 300px;
   resize: vertical;
 }
-
-.fixed-profile {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  background-color: #1a1a1a;
-  padding: 8px 12px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  z-index: 100;
-}
-
-.fixed-profile-img {
-  width: 40px;
-  height: 40px;
-  object-fit: cover;
-  border-radius: 4px;
-  border: 1px solid #888;
-}
-
-.fixed-profile-btn {
-  color: black;
-  background-color: #00cc66;
-  padding: 6px 10px;
-  border-radius: 0;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 14px;
-  transition: background-color 0.3s ease;
-}
-
-.fixed-profile-btn:hover {
-  background-color: #00aa55;
-}
   </style>
 </head>
 <body>
@@ -285,7 +250,6 @@ document.getElementById("writeForm").addEventListener("submit", function(event) 
   window.location.href = `post.html?id=${id}&board=${board}`;
 });
 </script>
-
 <!--좌측 하단 프로필&마이페이지-->
 <div class="fixed-profile">
   <img src="https://placehold.co/50x50" alt="프로필" class="fixed-profile-img">

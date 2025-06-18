@@ -77,45 +77,11 @@
       text-decoration: underline;
     }
 
-    .fixed-profile {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      background-color: #1a1a1a;
-      padding: 8px 12px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      z-index: 100;
-    }
-
-    .fixed-profile-img {
-      width: 40px;
-      height: 40px;
-      object-fit: cover;
-      border-radius: 4px;
-      border: 1px solid #888;
-    }
-
-    .fixed-profile-btn {
-      color: black;
-      background-color: #00cc66;
-      padding: 6px 10px;
-      border-radius: 0;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 14px;
-      transition: background-color 0.3s ease;
-    }
-
-    .fixed-profile-btn:hover {
-      background-color: #00aa55;
-    }
   </style>
 </head>
 <body>
 <header>
-  <a href="main.html" style="color: inherit; text-decoration: none;">공통 헤더</a>
+  <a href="main.html" style="color: inherit; text-decoration: none;">SMWU-web</a>
 </header>
 
 <div class="container">
@@ -155,7 +121,7 @@
   <div class="content">
     <div class="board-header">
       <h2>Python, c, java</h2>
-      <button onclick="location.href='write.html?board=coding1'">글쓰기</button>
+      <button class="write-btn" onclick="location.href='write.html'">글쓰기</button>
     </div>
 
     <table>
@@ -193,13 +159,12 @@
       }
     });
   });
-const board = "coding1";  // 게시판마다 하드코딩 가능
-const posts = JSON.parse(localStorage.getItem(`posts_${board}`) || "[]");
+  const board = "coding1";  // 게시판마다 하드코딩 가능
+  const posts = JSON.parse(localStorage.getItem("posts") || "[]");
+  const tbody = document.getElementById("post-list-body");
+  tbody.innerHTML = "";
 
-const tbody = document.getElementById("post-list-body");
-tbody.innerHTML = "";
-
-posts.forEach((post, index) => {
+  posts.forEach((post, index) => {
   const tr = document.createElement("tr");
   tr.innerHTML = `
     <td>${index + 1}</td>
@@ -209,13 +174,39 @@ posts.forEach((post, index) => {
   `;
   tbody.appendChild(tr);
 });
-
 </script>
-<!--좌측 하단 프로필&마이페이지-->
 <div class="fixed-profile">
-  <img src="https://placehold.co/50x50" alt="프로필" class="fixed-profile-img">
-  <a href="mypage.html" class="fixed-profile-btn">마이페이지</a>
+  <img id="profile-thumb" src="https://placehold.co/50x50" alt="프로필" class="fixed-profile-img">
+  <a id="profile-btn" href="login.html" class="fixed-profile-btn">로그인</a>
 </div>
+
+
+<script src="cookie.js"></script>
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const loginUser = GetCookie("loginUser");
+    const nickname = localStorage.getItem("nickname");
+    const profileImg = localStorage.getItem("profileImage");
+
+    const profileThumb = document.getElementById("profile-thumb");
+    const profileBtn = document.getElementById("profile-btn");
+
+    if (loginUser) {
+      // 로그인 상태일 때
+      profileBtn.textContent = "마이페이지";
+      profileBtn.href = "mypage.html";
+
+      if (profileImg) {
+        profileThumb.src = profileImg;
+      }
+    } else {
+      // 비로그인 상태일 때
+      profileBtn.textContent = "로그인";
+      profileBtn.href = "login.html";
+      profileThumb.src = "https://placehold.co/50x50";
+    }
+  });
+</script>
 
 </body>
 </html>
