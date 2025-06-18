@@ -226,30 +226,40 @@ document.querySelectorAll('nav a').forEach(link => {
 });
 
 // 7. 글 등록 처리
-document.getElementById("writeForm").addEventListener("submit", function(event) {
-  event.preventDefault();
+  document.getElementById("writeForm").addEventListener("submit", function(event) {
+    event.preventDefault();
 
-  const title = document.getElementById("title").value.trim();
-  const content = document.getElementById("content").value.trim();
+    const title = document.getElementById("title").value.trim();
+    const content = document.getElementById("content").value.trim();
+    const author = document.querySelector('input[name="author"]:checked').value;
+    const date = new Date().toISOString().split("T")[0];
+    const id = Date.now();
+    const board = new URLSearchParams(window.location.search).get("board") || "general";
 
-  if (!title || !content) {
-    alert("제목과 내용을 모두 입력해주세요.");
-    return;
-  }
+    if (!title || !content) {
+      alert("제목과 내용을 모두 입력해주세요.");
+      return;
+    }
 
-  const author = document.querySelector('input[name="author"]:checked').value;
-  const date = new Date().toISOString().split("T")[0];
-  const id = Date.now();
+    const post = { id, title, author, content, date, board };
 
-  const post = { id, title, author, content, date };
-  const posts = JSON.parse(localStorage.getItem(`posts_${board}`) || "[]");
-  posts.unshift(post);
-  localStorage.setItem(`posts_${board}`, JSON.stringify(posts));
+    // 게시판 저장
+    const posts = JSON.parse(localStorage.getItem(`posts_${board}`) || "[]");
+    posts.unshift(post);
+    localStorage.setItem(`posts_${board}`, JSON.stringify(posts));
 
-  isFormDirty = false; // 경고 해제
-  alert("등록이 완료되었습니다!");
-  window.location.href = `post.html?id=${id}&board=${board}`;
-});
+    // 마이페이지용 별도 저장 (작성자 관계없이 로그인한 사용자 기준 저장)
+    const loginUser = getCookie("loginUser");
+    if (loginUser) {
+      const myPostsKey = `user_posts_${loginUser}`;
+      const myPosts = JSON.parse(localStorage.getItem(myPostsKey) || "[]");
+      myPosts.unshift({ id, title, content, board }); // 작성자 정보는 제외
+      localStorage.setItem(myPostsKey, JSON.stringify(myPosts));
+    }
+
+    alert("등록이 완료되었습니다!");
+    window.location.href = `post.html?id=${id}&board=${board}`;
+  });
 </script>
 <!--좌측 하단 프로필&마이페이지-->
 <div class="fixed-profile">
