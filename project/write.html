@@ -179,7 +179,7 @@ function getCookie(name) {
   const parts = value.split(`; ${name}=`);
   if (parts.length === 2) return parts.pop().split(';').shift();
 }
-const username = getCookie("username") || "내이름";
+const username = getCookie("loginUser") || "내이름";
 
 // 2. 작성자 라디오 버튼의 이름 설정
 const realNameRadio = document.getElementById("realNameOption");
