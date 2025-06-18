@@ -160,7 +160,7 @@
     });
   });
   const board = "lecture2";  // 게시판마다 하드코딩 가능
-  const posts = JSON.parse(localStorage.getItem("posts") || "[]");
+  const posts = JSON.parse(localStorage.getItem(`posts_${board}`) || "[]");
   const tbody = document.getElementById("post-list-body");
   tbody.innerHTML = "";
 
