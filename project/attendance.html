@@ -49,7 +49,9 @@
 
 <div class="calendar-container">
   <div class="calendar-header" id="calendar-header">출석체크 달력</div>
+  <p style="text-align:left; font-size:18px;" id="attendance-count">출석 횟수: 0회</p>
   <div class="calendar-grid" id="calendar-grid"></div>
+  <div></div>
 </div>
 
 <script>
@@ -102,10 +104,25 @@
     localStorage.setItem(key, "attended");
     cell.classList.add("attended");
     alert("출석 완료!");
+    countAttendance();
+
   });
 
     calendarGrid.appendChild(cell);
   }
+  function countAttendance() {
+  let count = 0;
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key.startsWith("2025-") && localStorage.getItem(key) === "attended") {
+      count++;
+    }
+  }
+  document.getElementById("attendance-count").textContent = `출석 횟수: ${count}회`;
+}
+
+countAttendance(); // 페이지 로드시 한 번 실행
+
 </script>
 
 </body>
