@@ -230,11 +230,37 @@ li.active .menu-title::before {
     renderComments();
   });
   </script>
+<div class="fixed-profile">
+  <img id="profile-thumb" src="user.png" alt="프로필" class="fixed-profile-img">
+  <a id="profile-btn" href="login.html" class="fixed-profile-btn">로그인</a>
+</div>
+  <script src="cookie.js"></script>
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const loginUser = GetCookie("loginUser");
+    const nickname = localStorage.getItem("nickname");
+    const profileImg = localStorage.getItem("profileImage");
 
-  <!--좌측 하단 프로필&마이페이지-->
-    <div class="fixed-profile">
-    <img src="https://placehold.co/50x50" alt="프로필" class="fixed-profile-img">
-    <a href="mypage.html" class="fixed-profile-btn">마이페이지</a>
+    const profileThumb = document.getElementById("profile-thumb");
+    const profileBtn = document.getElementById("profile-btn");
+
+    if (loginUser) {
+      // 로그인 상태일 때
+      profileBtn.textContent = "마이페이지";
+      profileBtn.href = "mypage.html";
+
+      if (profileImg) {
+        profileThumb.src = profileImg;
+      }
+    } else {
+      // 비로그인 상태일 때
+      profileBtn.textContent = "로그인";
+      profileBtn.href = "login.html";
+      profileThumb.src = "user.png";
+    }
+  });
+</script>
+  
 </div>
 </body>
 </html>
