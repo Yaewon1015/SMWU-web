@@ -159,7 +159,7 @@
     </div>
 
     <table>
-      <tbody>
+      <tbody id="post-list-body">
         <tr>
           <td>1</td>
           <td><a href="#">HTML/CSS 기초 질문</a></td>
@@ -193,6 +193,7 @@
       }
     });
   });
+  const board = "coding2";  // 게시판마다 하드코딩 가능
   const posts = JSON.parse(localStorage.getItem("posts") || "[]");
   const tbody = document.getElementById("post-list-body");
   tbody.innerHTML = "";
