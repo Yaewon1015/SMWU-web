@@ -159,7 +159,7 @@
     </div>
 
     <table>
-      <tbody>
+      <tbody id="post-list-body">
         <tr>
           <td>1</td>
           <td><a href="#">아 시험공부하기 싫다</a></td>
@@ -200,7 +200,7 @@
   posts.forEach(post => {
     const tr = document.createElement("tr");
     tr.innerHTML = `
-      <td><a href="post.html?id=${post.id}" style="color:skyblue;text-decoration:none">${post.title}</a></td>
+      <td><a href="post.html?id=${post.id}&board=${board}" style="color:skyblue;text-decoration:none">${post.title}</a></td>
       <td>${post.author}</td>
       <td>${post.date}</td>
     `;
