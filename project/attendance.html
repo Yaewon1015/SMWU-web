@@ -88,15 +88,21 @@
       cell.classList.add("attended");
     }
 
-    cell.addEventListener("click", () => {
-      if (d === date) {
-        localStorage.setItem(key, "attended");
-        cell.classList.add("attended");
-        alert("출석 완료!");
-      } else {
-        alert("오늘 날짜만 클릭 가능합니다.");
-      }
-    });
+  cell.addEventListener("click", () => {
+    if (d !== date) {
+      alert("오늘 날짜만 클릭 가능합니다.");
+      return;
+    }
+
+    if (localStorage.getItem(key) === "attended") {
+      alert("이미 출석하셨습니다.");
+      return;
+    }
+
+    localStorage.setItem(key, "attended");
+    cell.classList.add("attended");
+    alert("출석 완료!");
+  });
 
     calendarGrid.appendChild(cell);
   }
