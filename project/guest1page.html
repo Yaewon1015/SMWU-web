@@ -50,7 +50,6 @@
       color: black;
       font-weight: bold;
       border: none;
-      border: 1px solid #00cc66;
       cursor: pointer;
       transition: background-color 0.2s ease;
     }
@@ -139,7 +138,7 @@ li.active .menu-title::before {
 <body>
 
 <header>
-  <a href="main.html" style="color: inherit; text-decoration: none;">SMWU-web</a>
+  <a href="main.html" style="color: inherit; text-decoration: none;">코딩숙터디</a>
 </header>
 
 <div class="container">
@@ -176,15 +175,21 @@ li.active .menu-title::before {
   </ul>
 </nav>
 
+<div class="fixed-profile">
+  <img id="profile-thumb" src="user.png" alt="프로필" class="fixed-profile-img">
+  <a id="profile-btn" href="login.html" class="fixed-profile-btn">로그인</a>
+</div>
+
+
   <div class="main-content">
     <div class="mypage">
 
       <!-- 프로필 -->
       <div class="left-panel">
-        <img src="https://placehold.co/400x400"  alt="프로필 사진">
+        <img src="https://cdn.pixabay.com/photo/2018/07/10/11/28/hamster-3528438_1280.jpg"  alt="프로필 사진">
         <h2>홍길동</h2>
           <p>코딩을 사랑하는 개발자입니다.<br>React와 Python을 좋아해요!</p>
-          <button class="follow-btn">+ 팔로우</button>
+          <button class="follow-btn" onclick="toggleFollow()">+ 팔로우</button>
         </div>
 
         <!-- 오른쪽 게시글 목록 -->
@@ -212,6 +217,8 @@ li.active .menu-title::before {
       </div>
     </div>
   </div>
+  
+<script src="cookie.js"></script>
 <script>
   const titles = document.querySelectorAll('.menu-title');
 
@@ -229,6 +236,67 @@ titles.forEach(title => {
     }
   });
 });
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const loginUser = GetCookie("loginUser");
+    const nickname = localStorage.getItem("nickname");
+    const profileImg = localStorage.getItem("profileImage");
+
+    const profileThumb = document.getElementById("profile-thumb");
+    const profileBtn = document.getElementById("profile-btn");
+
+    if (loginUser) {
+      // 로그인 상태일 때
+      profileBtn.textContent = "마이페이지";
+      profileBtn.href = "mypage.html";
+
+      if (profileImg) {
+        profileThumb.src = profileImg;
+      }
+    } else {
+      // 비로그인 상태일 때
+      profileBtn.textContent = "로그인";
+      profileBtn.href = "login.html";
+      profileThumb.src = "user.png";
+    }
+  });
+
+
+  const FOLLOW_KEY = 'guest1'; 
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const isFollowing = localStorage.getItem(FOLLOW_KEY) === 'true';
+    updateFollowButton(isFollowing);
+  });
+
+  function toggleFollow() {
+    const loginUser = GetCookie("loginUser"); 
+    if (!loginUser) {
+      alert("로그인 후 이용해주세요!");
+      return;
+    }
+
+    const currentState = localStorage.getItem(FOLLOW_KEY) === 'true';
+    const newState = !currentState;
+
+    localStorage.setItem(FOLLOW_KEY, newState.toString());
+    updateFollowButton(newState);
+  }
+
+  function updateFollowButton(isFollowing) {
+    const btn = document.querySelector('.follow-btn');
+    if (isFollowing) {
+      btn.textContent = '언팔로우';
+      btn.style.backgroundColor = 'black';
+      btn.style.color = 'white';
+    } else {
+      btn.textContent = '+ 팔로우';
+      btn.style.backgroundColor = '#00cc66';
+      btn.style.color = '#000';
+    }
+  }
+
+
 
 
 </script>
