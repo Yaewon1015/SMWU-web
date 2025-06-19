@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>예시 게시글</title>
+  <link rel="stylesheet" href="mainstyle.css">
+  <style>
+    nav {
+      background-color: #1a1a1a;
+      padding: 15px;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+    
+    body {
+      color: white;
+      background-color: black;
+    }
+    .post-container {
+      max-width: 90vw;
+      min-width: 400px;
+      margin: 0 auto;
+      background-color: #222;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    h1 {
+      color: skyblue;
+    }
+    .meta {
+      color: gray;
+      margin-bottom: 20px;
+      padding-bottom: 25px;
+      border-bottom: 1px solid #555;
+    }
+    .content {
+      white-space: pre-line;
+      line-height: 1.6;
+    }
+    .menu-title {
+      color: #ffffff;
+      cursor: pointer;
+      padding: 8px 10px;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.3s;
+    }
+
+    .menu-title:hover {
+      background-color: #2d2d2d;
+    }
+
+    li.active .menu-title::before {
+      content: "▼";
+    }
+    .menu-title::before {
+      content: "▶";
+      display: inline-block;
+      width: 16px;
+      transition: transform 0.3s ease;
+    }
+
+    .fixed-profile {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background-color: #1a1a1a;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 100;
+    }
+
+    .fixed-profile-img {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1px solid #888;
+    }
+
+    .fixed-profile-btn {
+      color: black;
+      background-color: #00cc66;
+      padding: 6px 10px;
+      border-radius: 0;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+      transition: background-color 0.3s ease;
+    }
+
+    .fixed-profile-btn:hover {
+      background-color: #00aa55;
+    }
+
+    /* 모바일 반응형 추가 스타일 */
+    @media (max-width: 768px) {
+      .post-container {
+        min-width: unset;
+        margin: 15px;
+        padding: 15px;
+        max-width: calc(100vw - 30px);
+      }
+
+      h1 {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+      }
+
+      .meta {
+        font-size: 14px;
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+      }
+
+      .content {
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      #like-section {
+        margin-top: 15px !important;
+      }
+
+      #like-btn {
+        font-size: 20px !important;
+      }
+
+      #comment-section {
+        margin-top: 20px !important;
+      }
+
+      #comment-section h3 {
+        font-size: 1.2em;
+      }
+
+      #comment-input {
+        font-size: 14px;
+      }
+
+      #comment-submit {
+        font-size: 12px;
+        padding: 8px 12px;
+      }
+
+      /* 프로필 버튼 모바일 위치 조정 */
+      .fixed-profile {
+        bottom: 20px;
+        right: 20px;
+        left: unset;
+      }
+
+      .fixed-profile-img {
+        width: 35px;
+        height: 35px;
+      }
+
+      .fixed-profile-btn {
+        font-size: 12px;
+        padding: 6px 8px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .post-container {
+        margin: 10px;
+        padding: 12px;
+        max-width: calc(100vw - 20px);
+      }
+
+      h1 {
+        font-size: 1.3em;
+      }
+
+      .meta {
+        font-size: 13px;
+      }
+
+      .content {
+        font-size: 13px;
+      }
+
+      #comment-input {
+        font-size: 13px;
+        padding: 6px;
+      }
+
+      .fixed-profile {
+        padding: 6px 8px;
+      }
+
+      .fixed-profile-img {
+        width: 30px;
+        height: 30px;
+      }
+
+      .fixed-profile-btn {
+        font-size: 11px;
+        padding: 4px 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="main.html" style="color: inherit; text-decoration: none;">코딩숙터디</a>
+    <!-- 햄버거 메뉴 버튼 -->
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </header>
+
+  <!-- 오버레이 -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- 모바일 네비게이션 -->
+  <nav class="mobile-nav" id="mobile-nav">
+    <ul>
+      <li>
+        <div class="menu-title">코딩</div>
+        <ul class="submenu">
+          <li><a href="coding1.html">파이썬, c, java</a></li>
+          <li><a href="coding2.html">html, css, js</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="menu-title">프로젝트</div>
+        <ul class="submenu">
+          <li><a href="project1.html">팀원 모집</a></li>
+          <li><a href="project2.html">프로젝트 후기</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="menu-title">강의</div>
+        <ul class="submenu">
+          <li><a href="lecture1.html">수강/시험 후기</a></li>
+          <li><a href="lecture2.html">자유 게시판</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="menu-title">자격증</div>
+        <ul class="submenu">
+          <li><a href="license1.html">스터디 모집</a></li>
+          <li><a href="license2.html">정보 공유방</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <!-- 데스크톱 네비게이션 -->
+    <nav class="desktop-nav">
+      <ul>
+        <li>
+          <div class="menu-title">코딩</div>
+          <ul class="submenu">
+            <li><a href="coding1.html">파이썬, c, java</a></li>
+            <li><a href="coding2.html">html, css, js</a></li>
+          </ul>
+        </li>
+        <li>
+          <div class="menu-title">프로젝트</div>
+          <ul class="submenu">
+            <li><a href="project1.html">팀원 모집</a></li>
+            <li><a href="project2.html">프로젝트 후기</a></li>
+          </ul>
+        </li>
+        <li>
+          <div class="menu-title">강의</div>
+          <ul class="submenu">
+            <li><a href="lecture1.html">수강/시험 후기</a></li>
+            <li><a href="lecture2.html">자유 게시판</a></li>
+          </ul>
+        </li>
+        <li>
+          <div class="menu-title">자격증</div>
+          <ul class="submenu">
+            <li><a href="license1.html">스터디 모집</a></li>
+            <li><a href="license2.html">정보 공유방</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="post-container">
+      <h1 id="post-title">Python 기초 질문</h1>
+      <div class="meta" id="post-meta">홍길동 · 2025-06-05</div>
+      <div class="content" id="post-content">문장 출력하는 함수가 뭔가요?</div>
+
+      <!-- 좋아요 영역 -->
+      <div id="like-section" style="margin-top: 20px;">
+        <button id="like-btn" 
+        style="
+        background: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: white;
+        padding: 0;
+        border: none;
+        "
+        aria-label="좋아요 버튼">👍</button>
+        <span id="like-count" style="margin-left: 10px; font-weight: bold;">0</span>
+      </div>
+
+      <!-- 댓글 영역 -->
+      <div id="comment-section" style="margin-top: 30px;">
+        <h3 style="color: skyblue; text-align: left;">댓글</h3>
+        <div style="display: flex; flex-direction: column; align-items: center;">
+          <textarea id="comment-input" rows="3" style="
+          width: 100%; 
+          max-width: 600px;
+          padding: 8px; 
+          border-radius: 4px; 
+          border: 1px solid #444;
+          resize: vertical;
+          background-color: #111;
+          color: white;
+          font-family: inherit;" placeholder="댓글을 입력하세요"></textarea>
+          <button id="comment-submit" style="
+          margin-top: 10px; 
+          padding: 6px 12px; 
+          cursor: pointer; 
+          align-self: flex-start;
+          background-color: #000;
+          color: #fff;
+          border: none;
+          font-size: 14px;
+          ">댓글 등록</button>
+        </div>
+
+        <ul id="comment-list" style="list-style: none; padding: 0; margin-top: 20px; color: white;"></ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 햄버거 메뉴 기능
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobile-nav');
+    const overlay = document.getElementById('overlay');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      mobileNav.classList.toggle('active');
+      overlay.classList.toggle('active');
+    });
+
+    overlay.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      mobileNav.classList.remove('active');
+      overlay.classList.remove('active');
+    });
+
+    // 모바일 메뉴 아코디언 기능
+    const mobileTitles = document.querySelectorAll('.mobile-nav .menu-title');
+    mobileTitles.forEach(title => {
+      title.addEventListener('click', () => {
+        const currentLi = title.closest('li');
+        const isActive = currentLi.classList.contains('active');
+
+        // 모바일 메뉴의 모든 항목 닫기
+        document.querySelectorAll('.mobile-nav ul li').forEach(li => li.classList.remove('active'));
+
+        // 현재 항목만 열기
+        if (!isActive) {
+          currentLi.classList.add('active');
+        }
+      });
+    });
+
+    // 데스크톱 메뉴 기능
+    const desktopTitles = document.querySelectorAll('.desktop-nav .menu-title');
+    desktopTitles.forEach(title => {
+      title.addEventListener('click', () => {
+        const currentLi = title.closest('li');
+        const isActive = currentLi.classList.contains('active');
+
+        // 데스크톱 메뉴의 모든 항목 닫기
+        document.querySelectorAll('.desktop-nav ul li').forEach(li => li.classList.remove('active'));
+
+        // 현재 항목만 열기
+        if (!isActive) {
+          currentLi.classList.add('active');
+        }
+      });
+    });
+
+    // 주소에서 id, board 추출
+    const urlParams = new URLSearchParams(window.location.search);
+    const postId = Number(urlParams.get("id"));
+    const board = urlParams.get("board");
+
+    // 게시판 이름으로 게시글 배열 불러오기
+    const posts = JSON.parse(localStorage.getItem(`posts_${board}`) || "[]");
+    const post = posts.find(p => p.id === postId);
+
+    if (post) {
+      document.getElementById("post-title").textContent = post.title;
+      document.getElementById("post-meta").textContent = `${post.author} · ${post.date}`;
+      document.getElementById("post-content").textContent = post.content;
+    } else {
+      document.querySelector(".post-container").innerHTML = "<p>게시글을 찾을 수 없습니다.</p>";
+    }
+
+    // 좋아요 기능
+    const likeBtn = document.getElementById("like-btn");
+    const likeCount = document.getElementById("like-count");
+
+    // 로컬스토리지에 postId별 좋아요 저장용 키
+    const likeStorageKey = `post_${postId}_likes`;
+    let likes = parseInt(localStorage.getItem(likeStorageKey)) || 0;
+
+    likeCount.textContent = likes;
+
+    likeBtn.addEventListener("click", () => {
+      likes++;
+      localStorage.setItem(likeStorageKey, likes);
+      likeCount.textContent = likes;
+    });
+
+    // 댓글 기능
+    const commentInput = document.getElementById("comment-input");
+    const commentSubmit = document.getElementById("comment-submit");
+    const commentList = document.getElementById("comment-list");
+
+    // 로컬스토리지에 postId별 댓글 저장용 키
+    const commentStorageKey = `post_${postId}_comments`;
+    let comments = JSON.parse(localStorage.getItem(commentStorageKey)) || [];
+
+    // 댓글 렌더링 함수
+    function renderComments() {
+      commentList.innerHTML = "";
+      comments.forEach((comment, idx) => {
+        const li = document.createElement("li");
+        li.style.borderBottom = "1px solid #555";
+        li.style.padding = "8px 0";
+        li.textContent = comment;
+        commentList.appendChild(li);
+      });
+    }
+
+    renderComments();
+
+    commentSubmit.addEventListener("click", () => {
+      const newComment = commentInput.value.trim();
+      if (newComment === "") {
+        alert("댓글 내용을 입력해주세요.");
+        return;
+      }
+      comments.push(newComment);
+      localStorage.setItem(commentStorageKey, JSON.stringify(comments));
+      commentInput.value = "";
+      renderComments();
+    });
+  </script>
+
+  <!--좌측 하단 프로필&마이페이지-->
+  <div class="fixed-profile">
+    <img src="https://placehold.co/50x50" alt="프로필" class="fixed-profile-img" id="profile-thumb">
+    <a href="mypage.html" class="fixed-profile-btn" id="profile-btn">마이페이지</a>
+  </div>
+  <script src="cookie.js"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const loginUser = GetCookie("loginUser");
+      const nickname = localStorage.getItem("nickname");
+      const profileImg = localStorage.getItem("profileImage");
+
+      const profileThumb = document.getElementById("profile-thumb");
+      const profileBtn = document.getElementById("profile-btn");
+
+      if (loginUser) {
+        // 로그인 상태일 때
+        profileBtn.textContent = "마이페이지";
+        profileBtn.href = "mypage.html";
+
+        if (profileImg) {
+          profileThumb.src = profileImg;
+        }
+      } else {
+        // 비로그인 상태일 때
+        profileBtn.textContent = "로그인";
+        profileBtn.href = "login.html";
+        profileThumb.src = "user.png";
+      }
+    });
+  </script>
+</body>
+</html>
