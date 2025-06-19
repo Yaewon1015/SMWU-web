@@ -464,6 +464,7 @@ document.querySelectorAll('nav a').forEach(link => {
     }
 
     alert("등록이 완료되었습니다!");
+    isFormDirty = false; // 이 줄을 추가
     window.location.href = `post.html?id=${id}&board=${board}`;
   });
 </script>
